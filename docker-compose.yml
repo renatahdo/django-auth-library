@@ -1,0 +1,41 @@
+version: '3'
+services:
+  # DON'T FORGET TO CHANGE THE XX WITH YOUR PORT
+  # YOUR_USER WITH YOUR UNIX USER
+  postgres_db33:
+    image: postgres:14-alpine
+    container_name: "postgres33"
+    environment:
+      POSTGRES_PASSWORD: "Renata.2198"
+      POSTGRES_DB: "renata_hurtadodb"
+      POSTGRES_USER: "renata_hurtado"
+    ports:
+      - "10033:5533"
+    volumes:
+      - "/home/renata_hurtado/postgres:/usr/src/postgres"
+    networks:
+      - our-library-net
+    command: -p 5533
+  web33:
+    build: .
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8033"
+    container_name: "django33"
+    depends_on: 
+      - postgres_db33
+    environment:
+      PSQL_DBNAME: "renata_hurtadodb"
+      PSQL_USERNAME: "renata_hurtado"
+      PSQL_PASS: "Renata.2198"
+      PSQL_HOST: "postgres_db33"
+      PSQL_PORT: "5533"
+    volumes:
+      - "/home/renata_hurtado/django/django-rest-hazel:/usr/src/django/library"
+    ports:
+      - "9033:8033"
+    networks:
+      - our-library-net
+      
+networks:
+  our-library-net:
+    external: true
+    driver: bridge
