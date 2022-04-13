@@ -2,15 +2,15 @@
 name: Django Test with PostgreSQL Example
 
 on:
-    workflow_call:
-    workflow_dispatch:
-    push:
-      # branches: [main, newBranch]
-        branches: [main]
-    pull_request:
-        branches: [main]
+  workflow_call:
+  workflow_dispatch:
+  push:
+    # branches: [main, newBranch]
+    branches: [main]
+  pull_request:
+    branches: [main]
 jobs:
-  #simple build puede llamarse como sea.
+#simple build puede llamarse como sea.
   simple_build:
     runs-on: ubuntu-latest
     steps:
@@ -28,4 +28,4 @@ jobs:
           docker build -t my-django-image33:2.0.0 .
       - name: Run docker containers
         run: |
-          docker-compose --env-file .env.stage up --build
+          docker-compose up --env-file .env.stg up --build
