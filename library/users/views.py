@@ -39,6 +39,7 @@ class LoginView(APIView):
 
 class LogoutView(GenericAPIView):
     serializer_class = RefreshTokenSerializer
+    # Permite que solamente cuando alguien se haya logueado, podamos utilizar esta vista de usuario.
     permission_classes = (permissions.IsAuthenticated, )
 
     def post(self, request, *args):
