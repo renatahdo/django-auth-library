@@ -9,6 +9,7 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+
 jobs:
 #simple build puede llamarse como sea.
   simple_build:
@@ -28,4 +29,4 @@ jobs:
           docker build -t my-django-image33:2.0.0 .
       - name: Run docker containers
         run: |
-          docker-compose up --env-file .env.stg up --build
+          docker-compose --env-file .env.stg up --build
