@@ -4,34 +4,35 @@ services:
   # YOUR_USER WITH YOUR UNIX USER
   postgres_db33:
     image: postgres:14-alpine
-    container_name: "postgres33"
+    container_name: "postgres${PORT}"
     environment:
-      POSTGRES_PASSWORD: "Renata.2198"
-      POSTGRES_DB: "renata_hurtadodb"
-      POSTGRES_USER: "renata_hurtado"
+      POSTGRES_PASSWORD: "${PSQL_PASS}"
+      POSTGRES_DB: "${PSQL_DB}"
+      POSTGRES_USER: "${PSQL_USER}"
     ports:
-      - "10033:5533"
+      - "100${PORT}:55${PORT}"
     volumes:
-      - "/home/renata_hurtado/postgres:/usr/src/postgres"
+      - "${POSTGRES_VOLUME_PATH}:/usr/src/postgres"
     networks:
       - our-library-net
-    command: -p 5533
+    command: "-p 55${PORT}"
   web33:
     build: .
-    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8033"
-    container_name: "django33"
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:80${PORT}"
+    container_name: "django${PORT}"
     depends_on: 
       - postgres_db33
     environment:
-      PSQL_DBNAME: "renata_hurtadodb"
-      PSQL_USERNAME: "renata_hurtado"
-      PSQL_PASS: "Renata.2198"
-      PSQL_HOST: "postgres_db33"
-      PSQL_PORT: "5533"
+      PSQL_DBNAME: "${PSQL_DB}"
+      PSQL_USERNAME: "${PSQL_USER}"
+      PSQL_PASS: "${PSQL_PASS}"
+      PSQL_HOST: "postgres_db${PORT}"
+      PSQL_PORT: "55${PORT}"
+      JWT_TOKEN_TIME: "${JWT_TOKEN_TIME}"
     volumes:
-      - "/home/renata_hurtado/django/django-rest-hazel:/usr/src/django/library"
+      - "${DJANGO_VOLUME_PATH}:/usr/src/django/library"
     ports:
-      - "9033:8033"
+      - "90${PORT}:80${PORT}"
     networks:
       - our-library-net
       
