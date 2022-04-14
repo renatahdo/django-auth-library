@@ -19,7 +19,7 @@ services:
   web33:
     build: .
     image: my-django-image33:2.0.0
-    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:80${PORT}"
+    command: bash -c "python manage.py makemigrations && pytest && python manage.py migrate && python manage.py runserver 0.0.0.0:80${PORT}"
     container_name: "django${PORT}"
     depends_on: 
       - postgres_db33

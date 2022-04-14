@@ -138,21 +138,21 @@ def test_language_no_longer(name_language):
 # 	assert Author.objects.count() == 4
 # 	print('Haciendo el monkeypatch')
 
-@pytest.mark.django_db
-def test_author_with_monkey(monkeypatch):
-	autor = Author.objects.create(name='Nombre', last_name='Apellido')
+# @pytest.mark.django_db
+# def test_author_with_monkey(monkeypatch):
+# 	autor = Author.objects.create(name='Nombre', last_name='Apellido')
 
-	class AuthorQuerysetMock():
-		def __init__(self):
-			self.some_value = 1
+# 	class AuthorQuerysetMock():
+# 		def __init__(self):
+# 			self.some_value = 1
 
-		def count(self):
-			return 4
+# 		def count(self):
+# 			return 4
 
-	def model_count_mock():
-		return AuthorQuerysetMock()
+# 	def model_count_mock():
+# 		return AuthorQuerysetMock()
 
-	monkeypatch.setattr(Author.objects, 'count', model_count_mock)
+# 	monkeypatch.setattr(Author.objects, 'count', model_count_mock)
 
-	assert Author.objects.all().count() == 4
-	print('Haciendo el monkeypatch')
+# 	assert Author.objects.all().count() == 4
+# 	print('Haciendo el monkeypatch')
