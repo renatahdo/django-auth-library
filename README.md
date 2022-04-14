@@ -1,3 +1,4 @@
+[![Build Status](https://app.travis-ci.com/renatahdo/django-auth-library.svg?branch=main)](https://app.travis-ci.com/renatahdo/django-auth-library)
 # Django-and-Django-REST-Framework
 
 ## Setup
